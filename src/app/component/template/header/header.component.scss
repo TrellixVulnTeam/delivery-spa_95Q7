@@ -1,0 +1,29 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-container {
+  height: calc(94vh - 100px);
+  display: flex;
+  background-color: white;
+
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.example-sidenav {
+  padding: 8%;
+  background-color: #7b1fa2;
+}
+
+.example-mat-drawer-content {
+  padding-top: 2%;
+  padding-left: 2%;
+  color: black;
+}
