@@ -9,6 +9,7 @@ import { HeaderComponent } from './component/template/header/header.component';
 import { SharedModule } from './shared/shared.module';
 import { FooterComponent } from './component/template/footer/footer.component';
 import { BodyComponent } from './component/template/body/body.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BodyComponent } from './component/template/body/body.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
