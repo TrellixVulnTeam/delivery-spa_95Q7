@@ -14,11 +14,11 @@ export class CategoryService {
     private baseUrl: string;
 
     constructor(public http: HttpClient) {
-        this.baseUrl = environment.apiUrl.concat('categories')
+        this.baseUrl = environment.apiBaseURL.concat('categories')
     }
 
-    findAll(): Observable<Category> {
-        return this.http.get<Category>(this.baseUrl);
+    findAll(): Observable<Category[]> {
+        return this.http.get<Category[]>(this.baseUrl);
     }
 
 }

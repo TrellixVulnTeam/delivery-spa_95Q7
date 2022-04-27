@@ -1,0 +1,77 @@
+.search-results {
+  margin: 40px;
+  height: 80%;
+
+  overflow: auto;
+}
+
+
+//Scrollbar fica invisível
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.padding-categories {
+  margin: 2%;;
+}
+
+
+.visualizar-produtos {
+  display: grid;
+grid-template-columns: repeat(3, 1fr);
+grid-template-rows: 1fr;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+  }
+  
+  .botao-visualizar { grid-area: 2 / 3 / 3 / 4;  }
+
+  .containers {
+    display: grid; 
+    grid-template-columns: 1fr; 
+    grid-template-rows: 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "."; 
+    justify-content: end; 
+    align-content: center; 
+    justify-items: end; 
+    align-items: center; 
+  }
+
+/* 
+.example-card {
+  margin: 2%;
+  height: 60%;
+  width: 70%;
+}
+
+.card-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.action-thumb_up {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.action-share {
+  grid-area: 1 / 4 / 2 / 5;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+ 
+}
+
+
+
+.span-categories{
+  font-size: 10px;
+ 
+} */

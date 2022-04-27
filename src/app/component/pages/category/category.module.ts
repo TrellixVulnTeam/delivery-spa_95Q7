@@ -4,16 +4,19 @@ import { CommonModule } from '@angular/common';
 import { CategoryRoutingModule } from './category-routing.module';
 import { CategoryComponent } from './category/category.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
   declarations: [
-    CategoryComponent
+    CategoryComponent, 
   ],
   imports: [
     CommonModule,
     CategoryRoutingModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ]
 })
-export class CategoryModule { }
+export class CategoryModule { 
+}

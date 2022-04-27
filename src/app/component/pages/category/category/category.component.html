@@ -1,0 +1,22 @@
+  <div class="search-results "    
+  infinite-scroll  
+  (scrolled)="onScrollDown($event)" 
+    (scrolledUp)="onScrollUp($event)">    
+  <div class="container">    
+    <div class="row grid-cards">    
+      <div *ngFor="let category of categories;let i=index" >
+        <mat-card class="padding-categories ">
+          <mat-card-subtitle>{{category.name}}</mat-card-subtitle>
+          <img mat-card-avatar mat-card-sm-image src="{{bucketURL}}/cat{{category.id}}.png">
+          <div class="containers"> 
+            <button class="mat-tooltip-panel-left" mat-mini-fab color="accent" matTooltip="Visualizar os produtos"
+            matTooltipPosition="after">
+              <mat-icon>pageview</mat-icon>
+            </button>
+          </div>
+        </mat-card>
+      </div>    
+    </div>    
+  </div>    
+</div> 
+
