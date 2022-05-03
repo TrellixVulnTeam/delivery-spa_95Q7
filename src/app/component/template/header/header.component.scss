@@ -30,3 +30,12 @@
   padding-left: 2%;
   width: 100%;
 }
+
+.btn-entrar {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  right: 1%;
+}

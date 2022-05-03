@@ -35,7 +35,8 @@ import { faEye as faEye } from '@fortawesome/free-solid-svg-icons';
     HttpClientModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

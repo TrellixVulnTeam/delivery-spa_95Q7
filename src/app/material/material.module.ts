@@ -8,6 +8,10 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     exports: [
@@ -19,7 +23,13 @@ import {MatTooltipModule} from '@angular/material/tooltip';
       MatListModule,
       MatCardModule,
       InfiniteScrollModule,
-      MatTooltipModule    
+      MatTooltipModule,
+      MatDialogModule,
+      MatFormFieldModule,
+      MatInputModule,
+      ReactiveFormsModule,
+      FormsModule
+
     ],
   })
   export class MaterialModule {}

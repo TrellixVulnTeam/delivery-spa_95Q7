@@ -1,0 +1,23 @@
+
+ <form [formGroup]="formGroupLogin" class="form">
+<h4 mat-dialog-title>Login</h4>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" color="accent" class="botoes-login">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput placeholder="Ex: email@examplo.com" formControlName="email" required>
+    <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" color="accent" class="botoes-login">
+    <mat-label>Senha</mat-label>
+    <input type="password" matInput placeholder="Senha"  formControlName="password" required>
+    <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+  </mat-form-field>
+
+</mat-dialog-content>
+<mat-divider class="divisor-login"></mat-divider>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="accent" (click)="login()" [disabled]="!formGroupLogin.valid" >Login</button>
+  <button mat-raised-button color="primary" mat-dialog-close>Fechar</button>
+</mat-dialog-actions>
+</form>
