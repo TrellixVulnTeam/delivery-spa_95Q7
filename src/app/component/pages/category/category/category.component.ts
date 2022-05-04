@@ -70,7 +70,6 @@ export class CategoryComponent implements OnInit {
         this.categories = data;
       },
       error: error => {
-        console.log("deu erro", error)
       }
     })
 

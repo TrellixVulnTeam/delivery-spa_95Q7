@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { RotasApp } from 'src/app/shared/enum/rotas-app';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+     private router: Router,
+     public dialogRef: MatDialogRef<LoginComponent>,
   ) {
 
   }
@@ -42,7 +47,8 @@ export class LoginComponent implements OnInit {
 }
 
 login() {
-
+  this.router.navigate([RotasApp.CATEGORY])
+  this.dialogRef.close();
  }
 
 }
