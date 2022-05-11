@@ -5,12 +5,14 @@ import { environment } from "src/environments/environment";
 import { CurrentUser } from "../models/currentUser";
 import { Login } from "../models/login.model";
 import { StorageService } from "../services/storage.service";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
     providedIn: 'root'
   })
 export class AuthenticationService {
 
+    jwtHelper: JwtHelperService = new JwtHelperService();
     private baseUrl: string;
 
     constructor(private http: HttpClient, public storage: StorageService) {
@@ -30,7 +32,8 @@ export class AuthenticationService {
     successfulLogin(authorizationValue : string) {
         let tok = authorizationValue.substring(7);
         let user : CurrentUser = {
-            token: tok
+            token: tok,
+            email: this.jwtHelper.decodeToken(tok).sub
         };
         this.storage.setCurrentUser(user);
     }
