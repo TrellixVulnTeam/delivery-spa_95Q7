@@ -17,3 +17,14 @@
     max-height: 100%;
     width: 100% !important;
 }
+
+.loader {
+    width: 8em;
+    height: 8em;
+    display: block;
+    position: absolute;
+    top: 40%;
+    z-index: 7000;
+    left: 50%;
+    transform: translateX(-50%);
+  }

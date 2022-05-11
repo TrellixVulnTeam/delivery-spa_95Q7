@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
+import { AuthenticationService } from 'src/app/core/auth/authentication.service';
+import { Login } from 'src/app/core/models/login.model';
 import { RotasApp } from 'src/app/shared/enum/rotas-app';
+
 
 @Component({
   selector: 'app-login',
@@ -10,14 +14,17 @@ import { RotasApp } from 'src/app/shared/enum/rotas-app';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  formGroupLogin!: FormGroup;
+  formGroupLogin: FormGroup;
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.required]);
+  credentials: Login;
+  exibirSpinner: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
      private router: Router,
      public dialogRef: MatDialogRef<LoginComponent>,
+     public autenticationService: AuthenticationService
   ) {
 
   }
@@ -47,8 +54,30 @@ export class LoginComponent implements OnInit {
 }
 
 login() {
-  this.router.navigate([RotasApp.CATEGORY])
-  this.dialogRef.close();
+  if (this.formGroupLogin.valid) {
+    this.exibirSpinner = true
+    let cred: Login = this.mapperForm2Aluno();
+    this.autenticationService.authenticate(cred)
+    .pipe(
+      finalize(() => {
+          this.exibirSpinner = false  
+      })
+    )
+    .subscribe({
+      next: response => {
+        this.dialogRef.close();
+        this.router.navigate([RotasApp.CATEGORY])
+      },
+      error: error => {
+      }
+    });
+  }
  }
+
+ private mapperForm2Aluno() {
+  let credential: Login = new Login();
+  Object.assign(credential, this.formGroupLogin.value);
+  return credential;
+}
 
 }

@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
     exports: [
@@ -28,7 +29,8 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
       MatFormFieldModule,
       MatInputModule,
       ReactiveFormsModule,
-      FormsModule
+      FormsModule,
+      MatProgressSpinnerModule
 
     ],
   })
