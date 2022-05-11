@@ -66,6 +66,7 @@ login() {
     .subscribe({
       next: response => {
         this.dialogRef.close();
+        this.autenticationService.successfulLogin(response.headers.get('Authorization'));
         this.router.navigate([RotasApp.CATEGORY])
       },
       error: error => {

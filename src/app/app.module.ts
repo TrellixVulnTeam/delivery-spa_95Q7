@@ -18,6 +18,7 @@ import { faShareNodes as faShareNodes } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { faEye as faEye } from '@fortawesome/free-solid-svg-icons';
+import { StorageService } from './core/services/storage.service';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { faEye as faEye } from '@fortawesome/free-solid-svg-icons';
     FontAwesomeModule
   ],
   providers: [
+    StorageService
   ],
   bootstrap: [AppComponent]
 })
