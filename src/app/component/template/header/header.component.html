@@ -5,16 +5,31 @@
   </button>
   <span>Delivery</span>
   <span class="example-spacer"></span>
-    <button mat-icon-button class="btn-entrar" aria-label="Login" matTooltip="Entrar no sistema."
+    <button *ngIf="!logged_in" mat-icon-button class="btn-login-logout" aria-label="Login" matTooltip="Entrar no sistema."
         matTooltipPosition="before" (click)="openLoginDialog()">
         <mat-icon>login</mat-icon>
         Entrar
+    </button>
+    <button *ngIf="logged_in" mat-icon-button class="btn-login-logout" aria-label="Sair" matTooltip="Sair do sistema."
+        matTooltipPosition="before">
+        <mat-icon>logout</mat-icon>
+        Sair
     </button>
 
 </mat-toolbar>
 
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
+    <br>
+      <div class="avatar"> 
+        <img class="circle" [src]="client?.imageUrl" routerLink="profile" (click)="drawer.toggle()">
+        <br>
+        <mat-label class="avatar-name"><mat-icon class="icon-name icon-font">person_2</mat-icon> {{client?.name}}</mat-label>
+        <br>
+        <mat-label class="avatar-email"> <mat-icon class="icon-font">place</mat-icon> Endereço padrão</mat-label> <mat-icon  class="icon-font">edit</mat-icon> 
+      </div>
+<br>
+    <mat-divider class="divisor-profile"></mat-divider>
     <mat-nav-list>
       <mat-list-item routerLink="home" (click)="drawer.toggle()" >
         <button mat-icon-button >
@@ -28,6 +43,7 @@
         </button>
         <span>Categorias</span>
       </mat-list-item>
+     
     </mat-nav-list>
   </mat-drawer>
 

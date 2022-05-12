@@ -7,7 +7,7 @@
       <div *ngFor="let category of categories;let i=index" >
         <mat-card class="padding-categories ">
           <mat-card-subtitle>{{category.name}}</mat-card-subtitle>
-          <img mat-card-avatar mat-card-sm-image src="{{bucketURL}}/cat{{category.id}}.png">
+          <img mat-card-avatar mat-card-sm-image src="{{bucketURL}}/cats/cat{{category.id}}.png">
           <div class="containers"> 
             <button class="mat-tooltip-panel-left" mat-mini-fab color="accent" matTooltip="Visualizar os produtos"
             matTooltipPosition="after">

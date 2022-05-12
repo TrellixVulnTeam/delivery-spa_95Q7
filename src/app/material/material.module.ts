@@ -13,6 +13,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
     exports: [
@@ -30,7 +31,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
       MatInputModule,
       ReactiveFormsModule,
       FormsModule,
-      MatProgressSpinnerModule
+      MatProgressSpinnerModule,
+      MatGridListModule
 
     ],
   })

@@ -1,48 +1,37 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Client } from 'src/app/core/models/client.model';
 import { ClientService } from 'src/app/core/services/client.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { environment } from 'src/environments/environment';
-import { LoginComponent } from '../../login/login/login.component';
-
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class ProfileComponent implements OnInit {
 
   email: string;
   client: Client;
-  background_url: string;
-  logged_in: boolean;
-
   constructor(
-    public dialog: MatDialog,
     private storageService: StorageService,
-    public clientService: ClientService,
+    public clientService: ClientService
   ) { }
 
   ngOnInit(): void {
    this.getCurrentUser();
   }
 
-
   getCurrentUser() {
     let currentUser = this.storageService.getCurrentUser();
     if (currentUser && currentUser.email) {
-      
       this.clientService.findByEmail(currentUser.email)
       .subscribe({
         next: response => {
             this.client = response;
-            this.logged_in = true;
             this.getImageIfExists();
         },
         error: error => {
-          this.logged_in = false;
         }
       })
     }
@@ -54,12 +43,8 @@ export class HeaderComponent implements OnInit {
       next: response => {
         this.client.imageUrl = `${environment.bucketBaseURL}/users/cp${this.client.id}.png`;
       }, error: error => {
+
       }
     })
-  }
-
-  openLoginDialog() {
-    const dialogRef = this.dialog.open(LoginComponent, {
-    });
   }
 }

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiBaseURL: 'http://localhost:8080/',
-  bucketBaseURL: 'https://delivery-angular-spring.s3.sa-east-1.amazonaws.com/imagens',
+  bucketBaseURL: 'https://delivery-app-angular-spring.s3.sa-east-1.amazonaws.com',
   
 };
 

@@ -31,11 +31,39 @@
   width: 100%;
 }
 
-.btn-entrar {
+.btn-login-logout {
   display: flex;
   position: absolute;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   right: 1%;
+}
+
+.divisor-profile {
+  background-color:  #69f0ae;
+}
+
+.circle {
+  width: 40%;
+  border-radius: 100%;
+  text-align: center;
+}
+
+.avatar { 
+    text-align: center;
+}
+
+.avatar-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.avatar-email {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.icon-font {
+  font-size: 14px;
 }
