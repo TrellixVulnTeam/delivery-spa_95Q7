@@ -1,6 +1,6 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { CurrentUser } from "../models/currentUser";
 import { Login } from "../models/login.model";
@@ -14,6 +14,7 @@ export class AuthenticationService {
 
     jwtHelper: JwtHelperService = new JwtHelperService();
     private baseUrl: string;
+    loggedIn = new BehaviorSubject<boolean>(false);
 
     constructor(private http: HttpClient, public storage: StorageService) {
         this.baseUrl = environment.apiBaseURL.concat('login')
@@ -36,9 +37,18 @@ export class AuthenticationService {
             email: this.jwtHelper.decodeToken(tok).sub
         };
         this.storage.setCurrentUser(user);
+        this.setLoggedUser(true);
     }
 
     logout() {
         this.storage.setCurrentUser(null);
     }
+
+    setLoggedUser(isLogged: boolean): void {
+        this.loggedIn.next(isLogged);
+      }
+    
+      getLoggedUser(): Observable<boolean> {
+        return this.loggedIn.asObservable();
+      }
 }

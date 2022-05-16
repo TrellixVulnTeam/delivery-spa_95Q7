@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthenticationService } from 'src/app/core/auth/authentication.service';
 import { Client } from 'src/app/core/models/client.model';
 import { ClientService } from 'src/app/core/services/client.service';
 import { StorageService } from 'src/app/core/services/storage.service';
@@ -16,36 +17,33 @@ export class HeaderComponent implements OnInit {
 
   email: string;
   client: Client;
-  background_url: string;
-  logged_in: boolean;
-
+  isLogged_in: boolean = false;
+  
   constructor(
     public dialog: MatDialog,
     private storageService: StorageService,
     public clientService: ClientService,
-  ) { }
+    public authenticationService: AuthenticationService
+  ) { 
+  }
 
   ngOnInit(): void {
    this.getCurrentUser();
   }
 
-
   getCurrentUser() {
     let currentUser = this.storageService.getCurrentUser();
     if (currentUser && currentUser.email) {
-      
       this.clientService.findByEmail(currentUser.email)
       .subscribe({
         next: response => {
             this.client = response;
-            this.logged_in = true;
             this.getImageIfExists();
         },
         error: error => {
-          this.logged_in = false;
         }
       })
-    }
+    } 
   }
 
   getImageIfExists() {
@@ -59,7 +57,13 @@ export class HeaderComponent implements OnInit {
   }
 
   openLoginDialog() {
+    
     const dialogRef = this.dialog.open(LoginComponent, {
     });
+    dialogRef.afterClosed().subscribe(value => {
+      this.authenticationService.getLoggedUser().subscribe(logged => {
+        this.isLogged_in = logged;
+      })
+    })
   }
 }

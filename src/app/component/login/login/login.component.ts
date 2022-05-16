@@ -7,7 +7,6 @@ import { AuthenticationService } from 'src/app/core/auth/authentication.service'
 import { Login } from 'src/app/core/models/login.model';
 import { RotasApp } from 'src/app/shared/enum/rotas-app';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -66,10 +65,12 @@ login() {
     .subscribe({
       next: response => {
         this.dialogRef.close();
+        
         this.autenticationService.successfulLogin(response.headers.get('Authorization'));
         this.router.navigate([RotasApp.CATEGORY])
       },
       error: error => {
+        console.log("login error | false");
       }
     });
   }

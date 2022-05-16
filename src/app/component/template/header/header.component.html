@@ -5,12 +5,12 @@
   </button>
   <span>Delivery</span>
   <span class="example-spacer"></span>
-    <button *ngIf="!logged_in" mat-icon-button class="btn-login-logout" aria-label="Login" matTooltip="Entrar no sistema."
+  <button *ngIf="!isLogged_in" mat-icon-button class="btn-login-logout" aria-label="Login" matTooltip="Entrar no sistema."
         matTooltipPosition="before" (click)="openLoginDialog()">
         <mat-icon>login</mat-icon>
         Entrar
     </button>
-    <button *ngIf="logged_in" mat-icon-button class="btn-login-logout" aria-label="Sair" matTooltip="Sair do sistema."
+    <button *ngIf="isLogged_in" mat-icon-button class="btn-login-logout" aria-label="Sair" matTooltip="Sair do sistema."
         matTooltipPosition="before">
         <mat-icon>logout</mat-icon>
         Sair
