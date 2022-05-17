@@ -52,6 +52,7 @@ export class AuthenticationService {
 
     logout() {
         this.storage.setCurrentUser(null);
+        this.setLoggedUser(false);
     }
 
     setLoggedUser(isLogged: boolean): void {

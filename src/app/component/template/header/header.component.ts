@@ -1,9 +1,11 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/auth/authentication.service';
 import { Client } from 'src/app/core/models/client.model';
 import { ClientService } from 'src/app/core/services/client.service';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { RotasApp } from 'src/app/shared/enum/rotas-app';
 import { environment } from 'src/environments/environment';
 import { LoginComponent } from '../../login/login/login.component';
 
@@ -21,7 +23,8 @@ export class HeaderComponent implements OnInit {
     public dialog: MatDialog,
     private storageService: StorageService,
     public clientService: ClientService,
-    public authenticationService: AuthenticationService
+    public authenticationService: AuthenticationService,
+    public router: Router,
   ) { 
   }
 
@@ -63,5 +66,13 @@ export class HeaderComponent implements OnInit {
         this.getCurrentUser();
       })
     })
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.authenticationService.getLoggedUser().subscribe(logged => {
+      this.isLogged_in = logged;
+    })
+    this.router.navigateByUrl(RotasApp.HOME);
   }
 }
