@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/core/auth/authentication.service';
+import { RotasApp } from 'src/app/shared/enum/rotas-app';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+
+  ) { }
 
   ngOnInit(): void {
+    
   }
 
-}
+  }
+
+
+
+

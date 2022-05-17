@@ -6,7 +6,7 @@ import { CurrentUser } from "../models/currentUser";
 export class StorageService {
 
     getCurrentUser() : CurrentUser {
-        let usr = sessionStorage.getItem(STORAGE.currentUser);
+        let usr = localStorage.getItem(STORAGE.currentUser);
         if (usr == null) {
             return null;
         }
@@ -17,10 +17,10 @@ export class StorageService {
 
     setCurrentUser(obj : CurrentUser) {
         if (obj == null) {
-            sessionStorage.removeItem(STORAGE.currentUser);
+            localStorage.removeItem(STORAGE.currentUser);
         }
         else {
-            sessionStorage.setItem(STORAGE.currentUser, JSON.stringify(obj));
+            localStorage.setItem(STORAGE.currentUser, JSON.stringify(obj));
         }
     }
 }

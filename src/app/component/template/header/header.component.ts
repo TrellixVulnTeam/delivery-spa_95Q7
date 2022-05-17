@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from 'src/app/core/auth/authentication.service';
 import { Client } from 'src/app/core/models/client.model';
@@ -6,7 +6,6 @@ import { ClientService } from 'src/app/core/services/client.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { environment } from 'src/environments/environment';
 import { LoginComponent } from '../../login/login/login.component';
-
 
 @Component({
   selector: 'app-header',
@@ -16,9 +15,8 @@ import { LoginComponent } from '../../login/login/login.component';
 export class HeaderComponent implements OnInit {
 
   email: string;
-  client: Client;
-  isLogged_in: boolean = false;
-  
+  @Input() isLogged_in: boolean;
+  @Input() client: Client;
   constructor(
     public dialog: MatDialog,
     private storageService: StorageService,
@@ -28,7 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.getCurrentUser();
+    this.getCurrentUser();
   }
 
   getCurrentUser() {
@@ -57,12 +55,12 @@ export class HeaderComponent implements OnInit {
   }
 
   openLoginDialog() {
-    
     const dialogRef = this.dialog.open(LoginComponent, {
     });
     dialogRef.afterClosed().subscribe(value => {
       this.authenticationService.getLoggedUser().subscribe(logged => {
         this.isLogged_in = logged;
+        this.getCurrentUser();
       })
     })
   }

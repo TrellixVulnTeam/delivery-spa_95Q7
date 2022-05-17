@@ -11,6 +11,8 @@ import { StorageService } from "./storage.service";
 export class ClientService {
 
     private baseUrl: string;
+    client: Client;
+    isLogged_in: boolean = false;
 
     constructor(
         public http: HttpClient, 
@@ -24,7 +26,6 @@ export class ClientService {
 
         let token = this.storageService.getCurrentUser().token;
         let authHeader = new HttpHeaders({'Authorization': 'Bearer ' + token});
-
         return this.http.get<Client>(
             `${this.baseUrl}/email?value=${email}`,
             {
@@ -36,4 +37,31 @@ export class ClientService {
         let url = `${environment.bucketBaseURL}/users/cp${id}.png`
         return this.http.get(url, {responseType : 'blob'});
     }
+
+    getCurrentUser(): Client {
+        let currentUser = this.storageService.getCurrentUser();
+        if (currentUser && currentUser.email) {
+          this.findByEmail(currentUser.email)
+          .subscribe({
+            next: response => {
+                this.client = response;
+                this.isLogged_in = true;
+                this.getImageIfExists();
+            },
+            error: error => {
+            }
+          })
+        }
+        return this.client; 
+      }
+    
+      getImageIfExists() {
+        this.getImageFromBucket(this.client.id)
+        .subscribe({
+          next: response => {
+            this.client.imageUrl = `${environment.bucketBaseURL}/users/cp${this.client.id}.png`;
+          }, error: error => {
+          }
+        })
+      }
 }

@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/core/auth/authentication.service';
 import { Category } from 'src/app/core/models/category.model';
+import { Client } from 'src/app/core/models/client.model';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { ClientService } from 'src/app/core/services/client.service';
+import { RotasApp } from 'src/app/shared/enum/rotas-app';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,29 +20,29 @@ export class CategoryComponent implements OnInit {
   listArray : string[] = [];
   sum = 20;
   direction = "";
+  client: Client;
+  isLogged_in: boolean;
 
   constructor(
-    public categoryService: CategoryService,    
+    public categoryService: CategoryService,  
+    public clientService: ClientService,
+    public authenticationService: AuthenticationService 
   ) {
     this.appendItems();
   }
 
   ngOnInit(): void {
     this.findAllCategories();
- 
+
    }
 
   onScrollDown(ev: any) {
-    console.log("scrolled down!!", ev);
-
     this.sum += 20;
     this.appendItems();
-    
     this.direction = "scroll down";
   }
 
   onScrollUp(ev: any) {
-    console.log("scrolled up!", ev);
     this.sum += 20;
     this.prependItems();
 
@@ -62,7 +67,6 @@ export class CategoryComponent implements OnInit {
     }
   }
 
-  
   findAllCategories() {
     this.categoryService.findAll()
     .subscribe({
@@ -72,8 +76,5 @@ export class CategoryComponent implements OnInit {
       error: error => {
       }
     })
-
-   
   }
-  
 }

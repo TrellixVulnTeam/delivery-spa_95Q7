@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { BaseComponent } from 'src/app/component/base.component';
 import { Client } from 'src/app/core/models/client.model';
 import { ClientService } from 'src/app/core/services/client.service';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { RotasApp } from 'src/app/shared/enum/rotas-app';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,16 +13,20 @@ import { environment } from 'src/environments/environment';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent extends BaseComponent implements OnInit {
 
   email: string;
   client: Client;
   constructor(
     private storageService: StorageService,
-    public clientService: ClientService
-  ) { }
+    public clientService: ClientService,
+    private router: Router,
+    public override snackBar: MatSnackBar
+  ) { 
+    super();
+  }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
    this.getCurrentUser();
   }
 
@@ -32,8 +40,20 @@ export class ProfileComponent implements OnInit {
             this.getImageIfExists();
         },
         error: error => {
+          switch (error.status) {
+            case 403:
+              this.openSnackBar("Acesso não autorizado.", "Fechar", 5, 'center', 'top');
+              this.storageService.setCurrentUser(null);
+              this.router.navigate([RotasApp.HOME]);
+              break;
+
+              default:
+                this.openSnackBar("Erro: " + error.status, "Fechar", 5, 'center', 'top');
+          }
         }
       })
+    } else {
+      this.router.navigate([RotasApp.HOME]);
     }
   }
 

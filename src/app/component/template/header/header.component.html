@@ -21,15 +21,16 @@
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <br>
-      <div class="avatar"> 
+      <div class="avatar" *ngIf="isLogged_in"> 
         <img class="circle" [src]="client?.imageUrl" routerLink="profile" (click)="drawer.toggle()">
         <br>
         <mat-label class="avatar-name"><mat-icon class="icon-name icon-font">person_2</mat-icon> {{client?.name}}</mat-label>
         <br>
         <mat-label class="avatar-email"> <mat-icon class="icon-font">place</mat-icon> Endereço padrão</mat-label> <mat-icon  class="icon-font">edit</mat-icon> 
+        <br>
+        <mat-divider class="divisor-profile"></mat-divider>
       </div>
-<br>
-    <mat-divider class="divisor-profile"></mat-divider>
+
     <mat-nav-list>
       <mat-list-item routerLink="home" (click)="drawer.toggle()" >
         <button mat-icon-button >

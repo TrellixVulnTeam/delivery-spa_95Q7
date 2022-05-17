@@ -1,35 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/auth/authentication.service';
+import { Client } from 'src/app/core/models/client.model';
 import { Login } from 'src/app/core/models/login.model';
+import { ClientService } from 'src/app/core/services/client.service';
 import { RotasApp } from 'src/app/shared/enum/rotas-app';
+import { BaseComponent } from '../../base.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends BaseComponent implements OnInit {
   formGroupLogin: FormGroup;
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.required]);
   credentials: Login;
   exibirSpinner: boolean;
+  client: Client;
+  
 
   constructor(
     private formBuilder: FormBuilder,
      private router: Router,
      public dialogRef: MatDialogRef<LoginComponent>,
-     public autenticationService: AuthenticationService
+     public autenticationService: AuthenticationService,
+     public override snackBar: MatSnackBar,
+     public clientService: ClientService,
   ) {
-
+super()
   }
   
-  ngOnInit(): void {
+  override ngOnInit(): void {
     this.validations();
+
+    this.autenticationService.refreshToken()
+    .subscribe({
+      next: response => {
+        console.log(response)
+        this.autenticationService.successfulLogin(response.headers.get('Authorization'));
+        this.router.navigate([RotasApp.HOME])
+      },
+      error: error => {
+        
+      }
+    });
   }
 
   private validations() {
@@ -65,16 +85,23 @@ login() {
     .subscribe({
       next: response => {
         this.dialogRef.close();
-        
+        console.log(response);
         this.autenticationService.successfulLogin(response.headers.get('Authorization'));
         this.router.navigate([RotasApp.CATEGORY])
       },
       error: error => {
-        console.log("login error | false");
+        switch (error.status) {
+          case 401:
+            this.openSnackBar("Falha na autenticação. Email ou senha incorretos!", "Fechar", 5, 'center', 'top');
+            break;
+          default:
+            this.openSnackBar("Erro: " + error.status, "Fechar", 5, 'center', 'top');  
+        }
       }
     });
   }
  }
+ 
 
  private mapperForm2Aluno() {
   let credential: Login = new Login();
